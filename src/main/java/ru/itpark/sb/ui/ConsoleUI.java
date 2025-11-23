@@ -92,7 +92,6 @@ public class ConsoleUI {
     }
 
     private void findAllDocuments() {
-
         var allDocuments = documentService.findAll();
 
         printDocuments(allDocuments);
@@ -132,7 +131,7 @@ public class ConsoleUI {
         DocumentValidator.baseStringValidate(password);
 
         if (documentService.canReadFile(password, document.getPasswordHash())) {
-            System.out.println("Содержимое: " + new String(document.getEncryptedContent()));
+            System.out.println("Содержимое: " + documentService.readDocument(document.getEncryptedContent(), document.getPasswordHash()));
         } else {
             System.out.println("Ты че! Пшел нафиг отсюда, у тебя нет прав на чтение этого файла");
         }
