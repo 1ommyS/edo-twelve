@@ -1,0 +1,17 @@
+{
+  "id": "eba840d1-c625-4d04-87fe-1b8cbb67b1ff",
+  "title": "title",
+  "encryptedContent": "AAAAAAAAAAAAAA==",
+  "passwordHash": "qwer",
+  "createdAt": "2025-12-06T15:37:53.3776",
+  "modifiedAt": "2025-12-06T15:37:53.377631",
+  "childDoc": {
+    "id": "36a825b5-2363-4ea1-b5d9-bc39edbe3329",
+    "title": "title",
+    "encryptedContent": "AAAAAAAAAAAAAA==",
+    "passwordHash": "qwer",
+    "createdAt": "2025-12-06T15:37:53.377668",
+    "modifiedAt": "2025-12-06T15:37:53.377672",
+    "childDoc": null
+  }
+}

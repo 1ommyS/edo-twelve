@@ -1,7 +1,9 @@
 package ru.itpark.sb.repository;
 
+import lombok.RequiredArgsConstructor;
 import ru.itpark.sb.domain.Document;
 import ru.itpark.sb.repository.exception.DocumentNotFoundException;
+import ru.itpark.sb.service.MetadataService;
 
 import java.util.*;
 
@@ -16,9 +18,13 @@ public class DocumentRepository {
     4) final переменная - переменная, которая должна быть задана сразу
      */
 
-    private final Map<UUID, Document> documents = new HashMap<>();
+    private final Map<UUID, Document> documents;
 
-    public DocumentRepository() {
+    private final MetadataService metadataService;
+
+    public DocumentRepository(MetadataService metadataService) {
+        this.metadataService = metadataService;
+        documents = metadataService.loadDocuments();
     }
 
     public void save(Document document) {
@@ -26,6 +32,7 @@ public class DocumentRepository {
                 document.getId(),
                 document
         );
+        metadataService.saveMetadata(documents);
     }
 
     public List<Document> findAll() {
