@@ -1,11 +1,10 @@
 package ru.itpark.sb.repository;
 
-import lombok.RequiredArgsConstructor;
 import ru.itpark.sb.domain.Document;
-import ru.itpark.sb.repository.exception.DocumentNotFoundException;
 import ru.itpark.sb.service.MetadataService;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class DocumentRepository {
 
@@ -43,14 +42,8 @@ public class DocumentRepository {
         return documents.containsKey(id);
     }
 
-    public Document findById(UUID id) {
-        final Document document = documents.get(id);
-
-        if (document == null) {
-            throw new DocumentNotFoundException(id);
-        }
-
-        return document;
+    public Optional<Document> findById(UUID id) {
+        return Optional.ofNullable(documents.get(id));
     }
 
     public int size() {
@@ -58,15 +51,13 @@ public class DocumentRepository {
     }
 
     public List<Document> searchByName(String name) {
-        ArrayList<Document> foundDocs = new ArrayList<>();
+        Predicate<Document> isDocNameContainsInList = document -> document.getTitle().toLowerCase().contains(name.toLowerCase());
 
-        for (var doc : documents.values()) {
-            if (doc.getTitle().toLowerCase().contains(name.toLowerCase())) {
-                foundDocs.add(doc);
-            }
-        }
-
-        return foundDocs;
+        return documents
+                .values()
+                .stream()
+                .filter(isDocNameContainsInList)
+                .toList();
     }
 
 }

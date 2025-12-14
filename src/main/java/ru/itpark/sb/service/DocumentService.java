@@ -3,6 +3,7 @@ package ru.itpark.sb.service;
 import lombok.RequiredArgsConstructor;
 import ru.itpark.sb.domain.Document;
 import ru.itpark.sb.repository.DocumentRepository;
+import ru.itpark.sb.repository.exception.DocumentNotFoundException;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -34,7 +35,10 @@ public class DocumentService {
     }
 
     public Document findById(UUID id) {
-        return documentRepository.findById(id);
+        return documentRepository.findById(id).orElseThrow(() -> {
+            System.err.println("Document with id = " + id.toString() + " not found");
+            return new DocumentNotFoundException();
+        });
     }
 
     public boolean canReadFile(String password, String passwordHash) {

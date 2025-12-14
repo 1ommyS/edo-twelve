@@ -12,6 +12,7 @@ import ru.itpark.sb.ui.ConsoleUI;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.UUID;
 
 
@@ -28,10 +29,22 @@ public class Main {
 
         var doc1 = mapper.readValue(json, Document.class);
         System.out.println(doc1);
+
+        ArrayList<Integer> ids = new ArrayList<>() {{
+            add(1);
+            add(2);
+            add(3);
+            add(4);
+            add(null);
+        }};
+
+        ids.stream()
+                .filter(id -> id.hashCode() > 0)
+                .toList();
     }
 
     public static void main(String[] args) throws JsonProcessingException {
-//        test();
+        test();
 
         EncryptionService encryptionService = new EncryptionService();
 
